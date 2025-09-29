@@ -1,0 +1,256 @@
+/* =========================
+   SIMSET Design — Dark Blue Theme (based on provided design system)
+   - Modern dark surface
+   - Blue accents (#1f6feb / #58a6ff)
+   - Action green (#238636)
+   - Softer borders & shadows
+========================= */
+
+:root{
+  /* Core surface & text */
+  --bg:            #0d1117;
+  --panel:         #111827; /* slightly lighter than bg for cards */
+  --panel-2:       #0f172a; /* deep panel */
+  --border:        #262c36;
+  --text:          #e0e6ed;
+  --muted:         #8b949e;
+
+  /* Accents */
+  --blue:          #1f6feb;
+  --blue-700:      #388bfd;
+  --blue-dim:      rgba(31, 111, 235, 0.14); /* subtle fill for secondary button */
+
+  --green:         #238636; /* primary action: open */
+  --green-700:     #2ea043;
+
+  --gray:          #4b5563;
+  --warn:          #f59e0b;
+  --danger:        #da3633;
+
+  --radius:        16px;
+  --shadow:        0 10px 30px rgba(0,0,0,.45);
+}
+
+*{ box-sizing:border-box }
+
+body{
+  margin:0;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans Thai", "Prompt", sans-serif;
+  background:
+    radial-gradient(1200px 600px at 20% -10%, rgba(31,111,235,0.08), transparent 60%),
+    radial-gradient(900px 500px at 120% 20%, rgba(88,166,255,0.06), transparent 65%),
+    var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.app{ width:min(940px,100%); }
+
+/* ========== Header ========== */
+.header{
+  display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;
+  padding:14px 16px;
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  background:linear-gradient(180deg, #0d1117, #0f1623);
+  box-shadow: var(--shadow);
+  margin-bottom:14px;
+}
+.brand{ font-weight:800; letter-spacing:.2px }
+.tip{ color:var(--muted); font-size:13px }
+
+/* ========== Tabs ========== */
+.tabs{ display:flex; gap:8px; margin-bottom:12px; }
+.tab-btn{
+  flex:1 1 0;
+  text-align:center;
+  padding:10px 12px;
+  border-radius:12px;
+  cursor:pointer;
+  border:1px solid var(--border);
+  background:#0f1623;
+  color:#cbd5e1;
+  font-weight:700;
+  transition: all .18s ease;
+}
+.tab-btn:hover{ border-color:#2b3440; color:#e5edf7; }
+.tab-btn[aria-selected="true"]{
+  background:#121a2a;
+  color:#ffffff;
+  outline:2px solid rgba(88,166,255,.35);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+}
+
+/* ========== Panels / Cards ========== */
+.panel{
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  background:linear-gradient(180deg, #0e1422, #111827 55%, #0f172a);
+  padding:22px;
+  box-shadow: var(--shadow);
+}
+
+/* ========== Hero (Open) ========== */
+.hero{
+  display:grid; place-items:center; gap:18px;
+  min-height:52vh; text-align:center;
+}
+.title{ font-size:28px; margin:0; font-weight:700; letter-spacing:.1px }
+.subtitle{ color:var(--muted); margin:0 }
+
+/* ========== Buttons ========== */
+.btn{
+  width:100%;
+  padding:14px 18px;
+  border:0;
+  border-radius:14px;
+  cursor:pointer;
+  font-weight:800; letter-spacing:.2px; color:#fff;
+  transition: transform .06s ease, filter .18s ease, box-shadow .18s ease, background .18s ease;
+  box-shadow: 0 12px 26px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.06);
+}
+.btn:active{ transform: translateY(1px) }
+.btn:disabled{ opacity:.6; cursor:not-allowed }
+
+/* Primary (Open Link) — green */
+.btn-green{
+  background: linear-gradient(180deg, var(--green), var(--green-700));
+}
+.btn-green:hover{ filter:brightness(1.06) }
+
+/* Secondary (Update) — blue dim */
+.btn-blue-dim{
+  background: linear-gradient(180deg, var(--blue-dim), #0f172a);
+  color:#dbeafe;
+  border:1px solid #233a8a;
+}
+.btn-blue-dim:hover{
+  border-color:#3355c2;
+  filter:brightness(1.05);
+}
+
+/* Neutral */
+.btn-gray{
+  background: linear-gradient(180deg, #6b7280, #4b5563);
+}
+
+.btn-sm{ padding:10px 12px; border-radius:10px; font-weight:700 }
+.max-420{ width:min(420px,100%) }
+
+/* ========== Status / Info ========== */
+.status{
+  border:1px dashed #2b3440;
+  border-radius:12px;
+  padding:10px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  background:#0b1220;
+  color:#cbd5e1;
+  white-space:pre-wrap;
+  min-height:48px;
+}
+.msg-ok{   color:#86efac }
+.msg-warn{ color:#fde68a }
+.msg-inf{  color:#93c5fd }
+
+/* ========== Form & Fields ========== */
+.form{ display:grid; gap:18px; max-width:740px; margin-inline:auto }
+.field-card{
+  padding:16px;
+  border:1px solid var(--border);
+  background: #0b1220;
+  border-radius:12px;
+  display:grid; gap:12px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.02);
+}
+.row{
+  display:grid;
+  grid-template-columns:220px 1fr;
+  gap:14px;
+  align-items:center;
+}
+label{ color:#e5e7eb; font-weight:800 }
+.label-desc{ color:#94a3b8; font-size:12px; margin-top:-6px }
+
+/* Inputs */
+input[type="url"]{
+  padding:12px;
+  border-radius:12px;
+  border:1px solid #293241;
+  background:#0b1422;
+  color:#e5e7eb;
+  width:100%;
+  font-size:16px;
+  transition: all .18s ease;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.03);
+}
+input[type="url"]::placeholder{ color:#718199 }
+input[type="url"]:hover{ border-color:#324058 }
+input[type="url"]:focus{
+  border-color:#58a6ff;
+  outline:none;
+  box-shadow: 0 0 0 3px rgba(88,166,255,.25);
+}
+
+.inline-actions{ display:flex; gap:8px; flex-wrap:wrap }
+.hint{ color:var(--muted); font-size:13px }
+.form-footer{ margin-top:8px }
+.note{ font-size:12px; color:#94a3b8; text-align:center; margin-top:8px }
+
+/* ========== QR Modal ========== */
+.modal{
+  position:fixed; inset:0;
+  background:rgba(2,6,12,.62);
+  display:none; align-items:center; justify-content:center; padding:16px;
+  backdrop-filter: blur(2px);
+}
+.modal.open{ display:flex }
+.modal-card{
+  background:#0b1220;
+  border:1px solid #2b3440;
+  border-radius:16px;
+  width:min(560px,100%);
+  padding:16px;
+  color:#e5e7eb;
+  box-shadow: var(--shadow);
+}
+.modal-head{ display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:8px }
+.modal-title{ font-weight:800; color:#e8eef8 }
+.modal-body{ display:grid; gap:10px }
+video{ width:100%; border-radius:12px; background:#000 }
+.qr-status{ font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color:#cbd5e1; min-height:20px }
+
+/* ========== Toast ========== */
+.toast{
+  position:fixed;
+  left:50%; bottom:20px;
+  transform: translateX(-50%) translateY(20px);
+  opacity:0;
+  background:#0b1220;
+  color:#e5e7eb;
+  border:1px solid #2b3440;
+  border-radius:12px;
+  padding:10px 14px;
+  font-weight:700;
+  box-shadow: var(--shadow);
+  transition: all .25s ease;
+}
+.toast.show{ opacity:1; transform:translateX(-50%) translateY(0) }
+
+/* ========== Flash highlight ========== */
+.flash{ animation:flash 1.2s ease }
+@keyframes flash{
+  0%   { box-shadow:0 0 0 0 rgba(88,166,255,0.0) }
+  30%  { box-shadow:0 0 0 6px rgba(88,166,255,0.28) }
+  100% { box-shadow:0 0 0 0 rgba(88,166,255,0.0) }
+}
+
+/* ========== Responsive ========== */
+@media (max-width:640px){
+  .row{ grid-template-columns:1fr }
+  .title{ font-size:24px }
+  .btn{ width:100% }
+}

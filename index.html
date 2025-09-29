@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SIMSET • Link Launcher (Firebase)</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app" role="application">
+    <div class="header" aria-label="หัวเว็บ">
+      <div class="brand">SIMSET Link ข้อสอบ และ แบบฟอร์ม</div>
+      <div class="tip">อนุญาต Pop-ups & Redirects สำหรับโดเมนนี้เพื่อเปิด 2 แท็บพร้อมกัน</div>
+    </div>
+
+    <div class="tabs" role="tablist" aria-label="เลือกโหมด">
+      <button id="tab-open" class="tab-btn" role="tab" aria-selected="true" aria-controls="panel-open">🔗 เปิดลิงก์</button>
+      <button id="tab-update" class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-update">✏️ อัปเดตลิงก์</button>
+    </div>
+
+    <!-- OPEN -->
+    <section id="panel-open" class="panel" role="tabpanel" aria-labelledby="tab-open">
+      <div class="hero">
+        <div>
+          <h1 class="title">กดเพื่อเปิดลิงก์</h1>
+          <p class="subtitle">เชื่อมต่อฐานข้อมูลแบบเรียลไทม์</p>
+        </div>
+        <div class="max-420" style="display:grid; gap:10px">
+          <button id="openBtn" class="btn btn-green" aria-label="เปิดสองลิงก์">🔗 OPEN LINK</button>
+          <small class="hint">จะเปิด <b>Selecx + Google Forms</b> พร้อมกัน</small>
+          <div id="status" class="status" aria-live="polite" aria-atomic="true"></div>
+          <p class="note">หากไม่ขึ้น ให้ตรวจการตั้งค่า Pop-ups หรือส่วนขยายที่บล็อกไว้</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- UPDATE -->
+    <section id="panel-update" class="panel" role="tabpanel" aria-labelledby="tab-update" hidden>
+      <form id="formLinks" class="form" novalidate>
+        <!-- Selecx -->
+        <div class="field-card">
+          <div class="row">
+            <div>
+              <label for="selecx">ลิงก์ Selecx (ระบบหลัก)</label>
+              <div class="label-desc">ตัวอย่าง: https://selecx.si.mahidol.ac.th/login/index.php</div>
+            </div>
+            <input type="url" id="selecx" name="selecx" placeholder="https://selecx.si.mahidol.ac.th/login/index.php" autocomplete="off" required>
+          </div>
+        </div>
+
+        <!-- Google Forms -->
+        <div class="field-card">
+          <div class="row">
+            <div>
+              <label for="gform">ลิงก์ Google Forms (แบบสอบถามเสริม)</label>
+              <div class="label-desc">ตัวอย่าง: https://forms.gle/XXXXXXXXXXXXXX</div>
+            </div>
+            <div class="inline-actions" style="flex:1">
+              <input type="url" id="gform" name="gform" placeholder="https://forms.gle/XXXXXXXXXXXXXX" autocomplete="off" required style="flex:1">
+              <button type="button" id="scanQRBtn" class="btn btn-gray btn-sm" aria-label="สแกนคิวอาร์เพื่อกรอกลิงก์">📷 สแกน QR</button>
+              <button type="button" id="pickImageBtn" class="btn btn-gray btn-sm" aria-label="เลือกรูป QR เพื่อกรอกลิงก์">🖼️ เลือกรูป</button>
+              <input type="file" id="qrFile" accept="image/*" hidden>
+            </div>
+          </div>
+        </div>
+
+        <div class="hint">ใส่ลิงก์ขึ้นต้นด้วย <b>https://</b> หรือใช้สแกน QR เพื่อกรอกอัตโนมัติ</div>
+
+        <div class="form-footer max-420" style="margin-top:8px">
+          <button class="btn btn-blue-dim" id="saveBtn" type="submit" aria-label="บันทึกการอัปเดตลิงก์">✏️ UPDATE LINK</button>
+          <div id="saveStatus" class="status" aria-live="polite" aria-atomic="true" style="margin-top:10px"></div>
+          <p class="note">บันทึกขึ้น Firebase แบบเรียลไทม์ และแคชสำรองในเครื่อง (localStorage)</p>
+        </div>
+      </form>
+    </section>
+  </div>
+
+  <!-- QR Modal -->
+  <div id="qrModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="qrTitle">
+    <div class="modal-card">
+      <div class="modal-head">
+        <div id="qrTitle" class="modal-title">📷 สแกน QR จากกล้อง</div>
+        <button type="button" id="closeQR" class="btn btn-gray btn-sm" aria-label="ปิดหน้าต่างสแกน">ปิด</button>
+      </div>
+      <div class="modal-body">
+        <video id="qrVideo" playsinline></video>
+        <div id="qrInfo" class="qr-status"></div>
+        <div class="inline-actions">
+          <button type="button" id="startQR" class="btn btn-gray btn-sm">เริ่มสแกน</button>
+          <button type="button" id="stopQR" class="btn btn-gray btn-sm">หยุด</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true">✅ ลิงก์ถูกบันทึกแล้ว</div>
+
+  <!-- Firebase (compat) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+
+  <!-- App -->
+  <script src="app.js"></script>
+</body>
+</html>
