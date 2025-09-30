@@ -3,18 +3,22 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SIMSET • Link Launcher (Firebase)</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>SIMSET • Link Launcher</title>
+  <link rel="stylesheet" href="./style.css" />
+  <!-- ฟอนต์ Inter (แนะนำ) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
   <div class="app" role="application">
+    <!-- Header -->
     <div class="header" aria-label="หัวเว็บ">
       <div class="brand">SIMSET Link ข้อสอบ และ แบบฟอร์ม</div>
       <div class="tip">อนุญาต Pop-ups & Redirects สำหรับโดเมนนี้เพื่อเปิด 2 แท็บพร้อมกัน</div>
     </div>
 
+    <!-- NAV Tabs (จัดกึ่งกลาง + มี active state) -->
     <div class="tabs" role="tablist" aria-label="เลือกโหมด">
-      <button id="tab-open" class="tab-btn" role="tab" aria-selected="true" aria-controls="panel-open">🔗 เปิดลิงก์</button>
+      <button id="tab-open" class="tab-btn" role="tab" aria-selected="true" aria-controls="panel-open">📎 เปิดลิงก์</button>
       <button id="tab-update" class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-update">✏️ อัปเดตลิงก์</button>
     </div>
 
@@ -25,9 +29,13 @@
           <h1 class="title">กดเพื่อเปิดลิงก์</h1>
           <p class="subtitle">เชื่อมต่อฐานข้อมูลแบบเรียลไทม์</p>
         </div>
-        <div class="max-420" style="display:grid; gap:10px">
-          <button id="openBtn" class="btn btn-green" aria-label="เปิดสองลิงก์">🔗 OPEN LINK</button>
+
+        <div class="max-420" style="display:grid; gap:14px">
+          <!-- ปุ่ม OPEN LINK ใหญ่พิเศษ -->
+          <button id="openBtn" class="btn btn-open" aria-label="เปิดสองลิงก์">🔗 OPEN LINK</button>
           <small class="hint">จะเปิด <b>Selecx + Google Forms</b> พร้อมกัน</small>
+
+          <!-- สถานะ -->
           <div id="status" class="status" aria-live="polite" aria-atomic="true"></div>
           <p class="note">หากไม่ขึ้น ให้ตรวจการตั้งค่า Pop-ups หรือส่วนขยายที่บล็อกไว้</p>
         </div>
@@ -101,6 +109,6 @@
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 
   <!-- App -->
-  <script src="app.js"></script>
+  <script src="./app.js"></script>
 </body>
 </html>
