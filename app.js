@@ -99,12 +99,16 @@ $("#openBtn").addEventListener("click", ()=>{
 
   logStatus(statusBox, "ℹ️ กำลังเปิดลิงก์…", "inf");
   const feat = "noopener,noreferrer";
-  const w1 = window.open(selecx, "_blank", feat);
-  const w2 = window.open(form,   "_blank", feat);
+
+  // ✅ เปิด Google Form ก่อน
+  const wForm = window.open(form, "_blank", feat);
+
+  // ✅ เปิด Selecx ทีหลัง → เบราว์เซอร์จะโฟกัสแท็บนี้
+  const wSelecx = window.open(selecx, "_blank", feat);
 
   const msgs = [];
-  msgs.push(w1 && !w1.closed ? `✅ opened: ${selecx}` : `ℹ️ เบราว์เซอร์บล็อกการเปิดลิงก์อัตโนมัติ — กรุณาอนุญาต Pop-ups & Redirects`);
-  msgs.push(w2 && !w2.closed ? `✅ opened: ${form}`   : `ℹ️ เบราว์เซอร์บล็อกการเปิดลิงก์อัตโนมัติ — กรุณาอนุญาต Pop-ups & Redirects`);
+  msgs.push(wForm && !wForm.closed ? `✅ opened: ${form}`   : `ℹ️ เบราว์เซอร์บล็อกการเปิดลิงก์อัตโนมัติ — กรุณาอนุญาต Pop-ups & Redirects`);
+  msgs.push(wSelecx && !wSelecx.closed ? `✅ opened: ${selecx}` : `ℹ️ เบราว์เซอร์บล็อกการเปิดลิงก์อัตโนมัติ — กรุณาอนุญาต Pop-ups & Redirects`);
 
   const blocked = msgs.some(m => m.startsWith("ℹ️ เบราว์เซอร์บล็อก"));
   logStatus(statusBox, msgs.join("\n"), blocked ? "inf" : "ok");
