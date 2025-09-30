@@ -113,6 +113,62 @@ body{
 
 .max-420{ width:min(820px,100%) }
 
+/* ---- Centered, large UPDATE button ---- */
+.form-footer{
+  /* ให้คอนเทนเนอร์ปุ่มเป็นกริด จัดกึ่งกลางทั้งแนวแกน X/Y */
+  display: grid;
+  place-items: center;
+  gap: 12px;            /* ช่องว่างระหว่างปุ่มกับกล่องสถานะ */
+  margin-top: 16px;     /* แทน inline style เดิม */
+  width: 100%;
+}
+
+#saveBtn{
+  /* ปุ่มใหญ่ กึ่งกลางแน่นอน */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: min(100%, 420px);  /* มือถือ = เต็มความกว้าง, เดสก์ท็อป = 420px */
+  height: 64px;             /* สูงขึ้น ชัดแตะง่าย */
+  padding: 0 28px;
+
+  font-size: 1.25rem;
+  font-weight: 800;
+  border-radius: 16px;
+  text-align: center;
+
+  /* โทนน้ำเงิน (action รอง) ให้คอนทราสต์ดี */
+  background: linear-gradient(180deg, #3b82f6, #2563eb);
+  color: #fff;
+  border: 1px solid rgba(59,130,246,.6);
+  box-shadow:
+    0 10px 26px rgba(59,130,246,.35),
+    inset 0 1px 0 rgba(255,255,255,.08);
+
+  transition: transform .08s ease, box-shadow .18s ease, filter .18s ease;
+  margin-inline: auto;       /* เผื่อกรณีคอนเทนเนอร์ไม่เป็น flex/grid */
+}
+
+#saveBtn:hover{
+  filter: saturate(1.05);
+  box-shadow:
+    0 14px 30px rgba(59,130,246,.45),
+    inset 0 1px 0 rgba(255,255,255,.10);
+}
+
+#saveBtn:active{
+  transform: translateY(1px);
+  box-shadow:
+    0 8px 18px rgba(59,130,246,.38),
+    inset 0 1px 0 rgba(255,255,255,.08);
+}
+
+/* มือถือ: ทำให้สูงและเต็มกว้างยิ่งขึ้น */
+@media (max-width:640px){
+  #saveBtn{ width:100%; height:72px; font-size:1.2rem; }
+}
+
 /* Status */
 .status{
   border:1px dashed #343434; border-radius:12px; padding:10px;
